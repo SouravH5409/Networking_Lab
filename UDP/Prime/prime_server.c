@@ -5,15 +5,16 @@
 #include <unistd.h>
 
 // Function to check if a number is prime
-int is_prime(int num) {
-    if (num <= 1) return 0;
-    if (num <= 3) return 1;
-    if (num % 2 == 0 || num % 3 == 0) return 0;
-    for (int i = 5; i * i <= num; i += 6) {
-        if (num % i == 0 || num % (i + 2) == 0)
-            return 0;
+int is_prime(int n) {
+    if (n <= 1) {
+        return 0; // Numbers less than or equal to 1 are not prime
     }
-    return 1;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            return 0; // Not a prime number
+        }
+    }
+    return 1; // Prime number
 }
 
 int main() {
