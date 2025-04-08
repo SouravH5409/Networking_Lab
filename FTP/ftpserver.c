@@ -16,8 +16,7 @@ perror("Error receiving filename");
 close(client_socket);
 return;
 }
-// Open the requested file
-
+  
 FILE *file = fopen(filename, "r");
 if (file == NULL) {
 char *error_message = "File not found";
@@ -41,19 +40,15 @@ int server_socket, client_socket;
 struct sockaddr_in server_addr, client_addr;
 socklen_t addr_len = sizeof(client_addr);
 
-// Create server socket
-
 server_socket = socket(AF_INET, SOCK_STREAM, 0);
 if (server_socket == 0) {
 perror("Socket failed");
 exit(EXIT_FAILURE);
 }
-// Configure server address
 server_addr.sin_family = AF_INET;
 server_addr.sin_addr.s_addr = INADDR_ANY;
 server_addr.sin_port = htons(PORT);
 
-// Bind socket to address
 if (bind(server_socket, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
 perror("Bind failed");
 exit(EXIT_FAILURE);
@@ -65,14 +60,12 @@ exit(EXIT_FAILURE);
 
 printf("Server is listening on port %d\n", PORT);
 while (1) {
-// Accept client connection
 client_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
 if (client_socket < 0) {
 perror("Accept failed");
 exit(EXIT_FAILURE);
 }
 printf("Client connected\n");
-// Handle client
 
 handle_client(client_socket);
 }
